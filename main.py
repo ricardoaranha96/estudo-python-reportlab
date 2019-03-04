@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #coding: utf-8
-
+import shutil
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import letter, inch, landscape
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
@@ -12,8 +12,7 @@ rows_data = [
             ['2','Teste2','Concluído']
           ]
 
-doc = SimpleDocTemplate("export_dir/export.pdf",
-                        pagesize=landscape(letter))
+doc = SimpleDocTemplate("export.pdf", pagesize=landscape(letter))
 # container for the 'Flowable' objects
 elements = []
 
@@ -22,7 +21,7 @@ style = ParagraphStyle(
     fontSize=12,
 )
 
-elements.append(Paragraph('Relatório criado em: 12/10/2019 às 14:00\n',style))
+elements.append(Paragraph('Relatório criado em: 13/10/2019 às 14:00\n',style))
 elements.append(Paragraph('Total de registros: 1040',style))
 elements.append(Paragraph('<br/><br/><br/>',style))
 
@@ -41,3 +40,5 @@ t.setStyle(TableStyle([('ALIGN', (1, 1), (-2, -2), 'LEFT'),
 elements.append(t)
 # write the document to disk
 doc.build(elements)
+
+shutil.move('export.pdf', 'export_dir/export.pdf')
